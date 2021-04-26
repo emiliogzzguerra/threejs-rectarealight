@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+<script type="module">
+    // Find the latest version by visiting https://unpkg.com/three. The URL will
+    // redirect to the newest stable release.
+    import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+    let renderer, mesh, camera, scene;
+
+    function init() {
+        // RENDERER
+        renderer = new THREE.WebGLRenderer({antialias: true});
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(new THREE.Color(0.2, 0.2, 0.35));
+        document.body.appendChild(renderer.domElement);
+
+        // scene
+        scene = new THREE.Scene();
+
+        // camera
+        const fov = 60;
+        const aspect = window.innerWidth / window.innerHeight;
+        const near = 0.1;
+        const far = 10000;
+        camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+        camera.position.set(3,3,3);
+        camera.lookAt(0,0,0);
+
+        // models
+        const geometry = new THREE.BoxGeometry();
+        const material = new THREE.MeshBasicMaterial({color: "red", wireframe: true})
+        mesh = new THREE.Mesh(geometry, material)
+
+        // const width = 1000;
+        // const height = 1000;
+        // const intensity = 100;
+        // const rectLight = new THREE.RectAreaLight( 0xffffff, intensity,  width, height );
+        // rectLight.position.set(0,0,0);
+        // rectLight.lookAt(3,3,3);
+        // scene.add( rectLight )
+
+        // const rectLightHelper = new THREE.RectAreaLightHelper( rectLight );
+        // rectLight.add( rectLightHelper );
+
+        // scene graph
+        scene.add(mesh);
+
+        renderer.render(scene, camera);
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+
+</html>
